@@ -1,0 +1,73 @@
+?<!DOCTYPE html >
+<head>
+    <title>Growing With Son</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style type='text/css'>
+        body {
+          background-color: #CCC;
+        }
+        #content {
+          background-color: #FFF;
+          border-radius: 5px;
+        }
+        #content .main {
+          padding: 20px;
+        }
+        #content .sidebar {
+          padding: 10px;
+        }
+        #content p {
+          line-height: 30px;
+        }
+    </style>
+    <script src="/javascripts/angular.js"></script>
+</head>
+<body ng-app="gwsApp">
+  <div class='container'>
+    <h1>Growing With Son</h1>
+    <div class='navbar navbar-inverse'>
+      <div class='navbar-inner nav-collapse' style="height: auto;">
+        <ul class="nav">
+          <li><a href="#">英文字母</a></li>
+          <li><a href="#">Page One</a></li>
+          <li><a href="#">Page Two</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id='content' class='row-fluid' ng-controller="PronounceLearnController as ctrl">
+      <div class='span9 main'>
+        <div ng-repeat="c in cellInfos">
+            <div class="cell" ng-click="checkUserClick(c.data)">
+              {{c.text}}
+            </div>
+        </div>
+      </div>
+      <div class='span3 sidebar'>
+        <h2>类型</h2>
+        <div class="btn-group" style="width:100%">
+            <button class="{{studyMode == 'a2p' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode='a2p'">字->音</button>
+            <button class="{{studyMode == 'p2a' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="studyMode='p2a'">音->字</button>
+        </div>
+        <h2>顺序</h2>
+        <div class="btn-group" style="width:100%">
+            <button class="{{orderType == 'asc' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="orderType='asc'">正序</button>
+            <button class="{{orderType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:50%" ng-click="orderType='random'">乱序</button>
+        </div>
+        <h2>排列</h2>
+        <div class="btn-group" style="width:100%">
+            <button class="{{displayType == 'all' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='all'">完整</button>
+            <button class="{{displayType == 'upper' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='upper'">大写</button>
+            <button class="{{displayType == 'lower' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='lower'">小写</button>
+            <button class="{{displayType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}" style="width:25%" ng-click="displayType='random'">随机</button>
+        </div>
+        <div audio-player play-list='audioList'>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script src="/javascripts/angular/app/app.js"></script>
+    <script src="/javascripts/angular/controller/pronounceLearnController.js"></script>
+    <script src='/javascripts/angular/directives/audioPlayerDirective.js'></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+angular.module('gwsApp.controllers',[]);
+angular.module('gwsApp.directives',[]);
+angular.module('gwsApp.services',[]);
+angular.module('gwsApp.filters',[]);
+angular.module('gwsApp',[
+	'gwsApp.controllers',
+	'gwsApp.directives',
+	'gwsApp.services',
+	'gwsApp.filters'
+]);
