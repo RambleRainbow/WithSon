@@ -1,0 +1,22 @@
+//
+   Created by 灵 on 2016/3/4.
+
+extends layout
+
+block content
+    body(ng-app="examApp" ng-controller="examController" as ctrl)
+        .row-fluid
+            #prev.span2.well.prev(ng-click="prevSubject()")
+            .span8.main
+                .questionPanel.well
+                    div(exam-question="" display-question="curSubject.question") addr
+                .answerPanel.well
+                    div(exam-answer="" answer="curSubject.answer")
+            #next.span2.well.next(ng-click="nextSubject()")
+        .row-fluid
+            .span8.offset2
+                .inputPanel.well
+                    div(exam-input="" input="curSubject.input")
+        script(src="/javascripts/angular/exam/app.js")
+        script(src="javascripts/angular/exam/directives.js")
+        script(src="/javascripts/angular/exam/examController.js")
