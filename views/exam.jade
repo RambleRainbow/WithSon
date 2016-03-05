@@ -6,17 +6,17 @@ extends layout
 block content
     body(ng-app="examApp" ng-controller="examController" as ctrl)
         .row-fluid
-            #prev.span2.well.prev(ng-click="prevSubject()")
+            button.span2.well.prev(ng-click="prevSubject()") 上<br>一<br>题
             .span8.main
                 .questionPanel.well
                     div(exam-question="" display-question="curSubject.question") addr
                 .answerPanel.well
                     div(exam-answer="" answer="curSubject.answer")
-            #next.span2.well.next(ng-click="nextSubject()")
+            button.span2.well.next(ng-click="nextSubject()") 下<br>一<br>题
         .row-fluid
             .span8.offset2
                 .inputPanel.well
-                    div(exam-input="" input="curSubject.input")
+                    div(exam-input="" input="curSubject.input" answer="curSubject.answer")
         script(src="/javascripts/angular/exam/app.js")
         script(src="javascripts/angular/exam/directives.js")
         script(src="/javascripts/angular/exam/examController.js")
