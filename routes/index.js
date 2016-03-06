@@ -8,9 +8,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/exam', function(req, res, next) {
-  var examParam = {};
-  examvm.getExamPaper(examParam, function(err, examPaper) {
-    res.render('exam', {examPaper: examPaper});
-  })
+  examvm.getExamPaper(
+      {
+        id:req.query.id,
+        count:req.query.count
+      },
+      function(err, examPaper) {
+        res.render('exam', {examPaper: JSON.stringify(examPaper)});
+      })
 });
 module.exports = router;

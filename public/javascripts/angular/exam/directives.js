@@ -28,7 +28,6 @@ angular.module('examApp.directives')
         restrict: 'A',
         replace:true,
         scope:{
-            input: '=',
             answer: '='
         },
         link: function($scope, $ele, $attrs) {
