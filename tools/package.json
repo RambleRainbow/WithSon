@@ -1,0 +1,13 @@
+{
+  "name": "WithSon",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "update": "npm update"
+  },
+  "dependencies": {
+    "mongodb": "^2.1.7",
+    "morgan": "~1.6.1",
+    "underscore": "^1.8.3"
+  }
+}
