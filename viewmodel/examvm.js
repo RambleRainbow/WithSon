@@ -116,14 +116,17 @@ var getExamStatistic = function(examId) {
                         var len = answerSpans.length;
                         return {
                             question: question,
-                            timeSpan: (_.chain(answerSpans)
+                            times: len,
+                            timeSpan: (Math.floor(_.chain(answerSpans)
                                 .reduce(function (memo, t) {
                                     return memo + t.timeSpan;
                                 }, 0)
-                                .value() / len / 1000).toString() + '秒'
+                                .value() / len / 10))/100
                         }
                     })
                     .toArray()
+                    .sortBy(function(timeSpan){return -1 * timeSpan.timeSpan;})
+                    .map(function(timeSpan){timeSpan.timeSpan = timeSpan.timeSpan.toString() + '秒';return timeSpan;})
                     .value();
 
                 resolve({

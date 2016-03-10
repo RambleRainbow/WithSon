@@ -21,13 +21,15 @@ block content
                             td=errItem.question
                             td=errItem.rightAnswer
                             td=errItem.answer
-            .span3.offset1
+            .span5.offset2
                 table.table
                     thead
                         tr.info
                             td 题目
+                            td 次数
                             td 耗时
                     each span in statistic.timeSpan
                         tr.alert-info
                             td=span.question
+                            td=span.times
                             td=span.timeSpan
