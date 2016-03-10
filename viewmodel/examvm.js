@@ -59,8 +59,8 @@ var saveExamResult = function(examResult) {
                 reject(err);
             }
 
-            var examResults = db.collection('examResults');
-            examResults.insert(examResult).
+            var exams = db.collection('exams');
+            exams.insert(examResult).
             then(function() {
                 resolve(objectId.toHexString());
                 db.close();
@@ -81,15 +81,15 @@ var getExamStatistic = function(examId) {
                 return;
             }
 
-            var examResults = db.collection('examResults');
-            examResults.find({_id: ObjectID(examId)}).toArray().
-            then(function(examResults) {
-                if(examResults.length !== 1) {
+            var exams = db.collection('exams');
+            exams.find({_id: ObjectID(examId)}).toArray().
+            then(function(exams) {
+                if(exams.length !== 1) {
                     reject(new Error('error exmaid:' + examId));
                     return;
                 }
 
-                var errStatistic = _.chain(examResults[0].subjects)
+                var errStatistic = _.chain(exams[0].subjects)
                     .map(function(subject) {
                         var i = 1;
                         return {
@@ -102,7 +102,7 @@ var getExamStatistic = function(examId) {
                     .reject(function(subject){return subject.isRight;})
                     .value();
 
-                var timespanStatistic = _.chain(examResults[0].subjects)
+                var timespanStatistic = _.chain(exams[0].subjects)
                     .map(function(subject) {
                         return {
                             question: subject.question.text,
@@ -127,11 +127,11 @@ var getExamStatistic = function(examId) {
                     .value();
 
                 resolve({
-                    name: examResults[0].paper.name,
-                    startTime: new Date(examResults[0].paper.startTime).toLocaleDateString() + " " +
-                               new Date(examResults[0].paper.startTime).toLocaleTimeString(),
+                    name: exams[0].paper.name,
+                    startTime: new Date(exams[0].paper.startTime).toLocaleDateString() + " " +
+                               new Date(exams[0].paper.startTime).toLocaleTimeString(),
                     totalTime: (function() {
-                        var time = Math.floor((new Date(examResults[0].paper.endTime) - new Date(examResults[0].paper.startTime))/1000);
+                        var time = Math.floor((new Date(exams[0].paper.endTime) - new Date(exams[0].paper.startTime))/1000);
                         var min = Math.floor(time/60);
                         var sec = time % 60;
                         return min.toString() + "分" + sec.toString() + "秒";
