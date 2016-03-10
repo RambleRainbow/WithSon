@@ -7,7 +7,7 @@ mongoClient.connect('mongodb://127.0.0.1:27017/gws', function(err, db) {
     if(err) {
         console.log(err);
     }
-    var exams = db.collection('exams');
+    var examRules = db.collection('examRules');
 
     var ex = [
         {
@@ -24,7 +24,7 @@ mongoClient.connect('mongodb://127.0.0.1:27017/gws', function(err, db) {
         }
     ];
 
-    //exams.insert(ex,function(err, results) {
+    //examRules.insert(ex,function(err, results) {
     //    if(err) {
     //        console.log(err);
     //    }
@@ -33,8 +33,8 @@ mongoClient.connect('mongodb://127.0.0.1:27017/gws', function(err, db) {
     //    }
     //    db.close();
     //});
-
-    exams.find({}).toArray().
+    //
+    examRules.find({}).toArray().
     then(function(results) {
         r = results;
         var q = JSON.parse(results[0].questionQuery);
