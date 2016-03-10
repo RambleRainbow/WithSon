@@ -17,7 +17,11 @@ angular.module('examApp.controllers')
                     data: JSON.stringify({paper: exam.examInfo, subjects: exam.subjects}),
                     dataType: "json",
                     success: function (result) {
-                        alert(result);
+                        if(result.errorCode === 0) {
+                            window.location.href= "/exam/statistics?id=" + result.examid;
+                        } else {
+                            alert(result.reason);
+                        }
                     }
                 }
             )

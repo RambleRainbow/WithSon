@@ -1,0 +1,33 @@
+//
+   Created by 灵 on 2016/3/10.
+extends layout
+
+block content
+    .container-fluid
+        .row-fluid
+            .well.span4='练习:' + statistic.name
+            .well.span5='日期:' + statistic.startTime
+            .well.span3='用时:' + statistic.totalTime
+        .row-fluid
+            .span5
+                table.table
+                    thead
+                        tr.error
+                            td 题目
+                            td 正确
+                            td 错误
+                    each errItem in statistic.err
+                        tr.error
+                            td=errItem.question
+                            td=errItem.rightAnswer
+                            td=errItem.answer
+            .span3.offset1
+                table.table
+                    thead
+                        tr.info
+                            td 题目
+                            td 耗时
+                    each span in statistic.timeSpan
+                        tr.alert-info
+                            td=span.question
+                            td=span.timeSpan

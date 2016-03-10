@@ -7,6 +7,17 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/exam/statistics', function(req, res, next) {
+    examvm.getExamStatistic(req.query.id).
+    then(function(result) {
+        res.render('examStatistics', {title: '测试结果',statistic: result});
+    }).
+    catch(function(err) {
+        res.send(err);
+        res.end();
+    })
+});
+
 router.post('/exam/create', function(req, res, next) {
     examvm.saveExamResult(req.body).
     then(function(id) {
@@ -17,7 +28,6 @@ router.post('/exam/create', function(req, res, next) {
         res.send({errorCode:-1, reason: err.message});
         res.end();
     });
-
 });
 
 router.get('/exam', function(req, res, next) {
@@ -26,17 +36,8 @@ router.get('/exam', function(req, res, next) {
         res.render('exam', {examPaper: JSON.stringify(exam)});
     }).
     catch(function(err) {
-        //throw err;
         res.send(err.message);
         res.end();
     });
-    //examvm.getExamPaper(
-    //  {
-    //    id:req.query.id,
-    //    count:req.query.count
-    //  },
-    //  function(err, examPaper) {
-    //    res.render('exam', {examPaper: JSON.stringify(examPaper)});
-    //  })
 });
 module.exports = router;

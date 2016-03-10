@@ -1,6 +1,7 @@
 var config = require('../config');
 var mongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+var _ = require('underscore')._;
 
 var getExamPaperEx = function(examParam) {
     return new Promise(function(resolve, reject){
@@ -72,7 +73,82 @@ var saveExamResult = function(examResult) {
     });
 }
 
+var getExamStatistic = function(examId) {
+    return new Promise(function(resolve, reject) {
+        mongoClient.connect(config.dburl, function(err, db) {
+            if(err) {
+                reject(err);
+                return;
+            }
+
+            var examResults = db.collection('examResults');
+            examResults.find({_id: ObjectID(examId)}).toArray().
+            then(function(examResults) {
+                if(examResults.length !== 1) {
+                    reject(new Error('error exmaid:' + examId));
+                    return;
+                }
+
+                var errStatistic = _.chain(examResults[0].subjects)
+                    .map(function(subject) {
+                        var i = 1;
+                        return {
+                            question: subject.question.text,
+                            rightAnswer: subject.question.answer,
+                            answer: subject.answer,
+                            isRight: subject.isRight
+                        };
+                    })
+                    .reject(function(subject){return subject.isRight;})
+                    .value();
+
+                var timespanStatistic = _.chain(examResults[0].subjects)
+                    .map(function(subject) {
+                        return {
+                            question: subject.question.text,
+                            timeSpan: new Date(subject.endTime) - new Date(subject.startTime)
+                        }
+                    })
+                    .groupBy(function(subject) {
+                        return subject.question;
+                    })
+                    .mapObject(function(answerSpans, question) {
+                        var len = answerSpans.length;
+                        return {
+                            question: question,
+                            timeSpan: (_.chain(answerSpans)
+                                .reduce(function (memo, t) {
+                                    return memo + t.timeSpan;
+                                }, 0)
+                                .value() / len / 1000).toString() + '秒'
+                        }
+                    })
+                    .toArray()
+                    .value();
+
+                resolve({
+                    name: examResults[0].paper.name,
+                    startTime: new Date(examResults[0].paper.startTime).toLocaleDateString() + " " +
+                               new Date(examResults[0].paper.startTime).toLocaleTimeString(),
+                    totalTime: (function() {
+                        var time = Math.floor((new Date(examResults[0].paper.endTime) - new Date(examResults[0].paper.startTime))/1000);
+                        var min = Math.floor(time/60);
+                        var sec = time % 60;
+                        return min.toString() + "分" + sec.toString() + "秒";
+                    })(),
+                    err: errStatistic,
+                    timeSpan: timespanStatistic
+                });
+            }).
+            catch(function(err) {
+                throw err;
+            })
+        })
+    });
+};
+
 module.exports = {
     getExamPaperEx: getExamPaperEx,
-    saveExamResult: saveExamResult
+    saveExamResult: saveExamResult,
+    getExamStatistic: getExamStatistic
 }
