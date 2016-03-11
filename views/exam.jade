@@ -7,13 +7,13 @@ block content
     body(ng-app="examApp" ng-controller="examController" as ctrl)
         .container-fluid
             .row-fluid
-                button.span2.well.prev(ng-click="prevSubject()") 上<br>一<br>题
+                button.span2.well.prev(ng-click="onclickprev()") 上<br>一<br>题
                 .span8.main
                     .questionPanel.well
                         div(exam-question="" display-question="curSubject.question.text") addr
                     .answerPanel.well
                         div(exam-answer="" answer="curSubject.answer")
-                button.span2.well.next(ng-click="nextSubject()") 下<br>一<br>题
+                button.span2.well.next(ng-click="onclicknext()") 下<br>一<br>题
             .row-fluid
                 .span8.offset2
                     .inputPanel.well

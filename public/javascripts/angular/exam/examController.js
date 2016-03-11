@@ -6,7 +6,13 @@ angular.module('examApp.controllers')
 .controller( 'examController', ['$scope', function examController($scope) {
     var exam = new Exam(examPaper);
 
-    $scope.nextSubject = function() {
+    $scope.onclicknext = function() {
+        if($scope.curSubject) {
+            if($scope.curSubject.answer === "") {
+                return;
+            }
+        }
+
         $scope.curSubject = exam.getNextSubject();
         if($scope.curSubject == null) {
             $.ajax(
@@ -28,7 +34,7 @@ angular.module('examApp.controllers')
         }
     }
 
-    $scope.prevSubject = function() {
+    $scope.onclickprev = function() {
         curSubject = exam.getPrevSubject();
     }
 }]);
