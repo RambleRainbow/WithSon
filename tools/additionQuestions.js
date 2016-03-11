@@ -2,17 +2,9 @@
  * Created by 灵 on 2016/3/6.
  */
 var _ = require('underscore')._;
-function numArray(max) {
+function makeAddendPair(upperRange, firstAddend) {
     var all = [];
-    for (var i = 1; i <= max; i++) {
-        all.push(i);
-    }
-    return all;
-}
-
-function makeAddend(upperRange, firstAddend) {
-    var all = [];
-    for (var i = 0; i <= upperRange; i++) {
+    for (var i = 1; i <= upperRange; i++) {
         all.push([firstAddend, i]);
     }
     return all;
@@ -86,11 +78,10 @@ function markQuestionLabel(question) {
 }
 
 function generateAddQuestions(upperRange) {
-    return _.chain([upperRange])
-        .map(numArray)
-        .reduce(function (memo, item) {return memo.concat(item);}, [])
-        .map(function(firstAddend){ return makeAddend(upperRange, firstAddend);})
-        .reduce(function (memo, ele) {return memo.concat(ele);}, [])
+    var makeAddendPairWithRange = _.partial(makeAddendPair, upperRange);
+    return _.chain(_.range(1,upperRange+1,1))
+        .map(makeAddendPairWithRange)
+        .reduce(function(memo, t){return memo.concat(t);}, [])
         .map(makeQuestion)
         .map(markQuestionLabel)
         .value();
