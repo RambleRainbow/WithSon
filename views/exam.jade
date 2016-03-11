@@ -15,6 +15,7 @@ block content
                         div(exam-answer="" answer="curSubject.answer")
                 button.span2.well.next(ng-click="onclicknext()") 下<br>一<br>题
             .row-fluid
+                div(wav-player="", wav-file="wavFile")
                 .span8.offset2
                     .inputPanel.well
                         div(exam-input="" answer="curSubject.answer")

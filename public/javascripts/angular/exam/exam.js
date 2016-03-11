@@ -11,7 +11,7 @@ Exam.prototype.checkAnswer = function() {
     var subject = this.subjects[this.subjects.length-1];
     if(subject == null) {
         this.examInfo.startTime = new Date();
-        return;
+        return undefined;
     }
 
     subject.endTime = new Date();
@@ -31,11 +31,11 @@ Exam.prototype.checkAnswer = function() {
     if(subject.question.rightTimes == 2) {
         this.exam.questionPool.splice(this.exam.questionPool.indexOf(subject.question), 1);
     }
+
+    return subject.isRight;
 }
 
 Exam.prototype.getNextSubject = function() {
-    this.checkAnswer();
-
     if(this.exam.questionPool.length !== 0) {
         var subject = {
             question: this.exam.questionPool[Math.floor(Math.random() * this.exam.questionPool.length)],

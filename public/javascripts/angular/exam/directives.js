@@ -76,3 +76,25 @@ angular.module('examApp.directives')
             '</div>'
     }
 })
+.directive('wavPlayer', function(){
+    return {
+        restrict: 'A',
+        replace: true,
+        scope:{
+            wavFile: '='
+        },
+        controller:function($scope) {
+        },
+        link: function($scope, $eles, $attr) {
+            $scope.$watch('wavFile', function(newVal, oldVal, scope) {
+                console.log(oldVal + ',' + newVal);
+                if(newVal === undefined || (newVal === "")) return;
+                $attr.$set('src', newVal);
+                $eles[0].load();
+                $eles[0].play();
+                $scope.wavFile = '';
+            })
+        },
+        template:'<audio style="display:none"></audio>'
+    }
+})

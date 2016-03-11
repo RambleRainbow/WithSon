@@ -5,6 +5,7 @@ console.log('load controller');
 angular.module('examApp.controllers')
 .controller( 'examController', ['$scope', function examController($scope) {
     var exam = new Exam(examPaper);
+    $scope.wavFile = '';
 
     $scope.onclicknext = function() {
         if($scope.curSubject) {
@@ -13,7 +14,12 @@ angular.module('examApp.controllers')
             }
         }
 
+        var isRight = exam.checkAnswer();
+        if(isRight !== undefined && isRight == false) {
+            $scope.wavFile = '/audios/wrong.mp3';
+        }
         $scope.curSubject = exam.getNextSubject();
+
         if($scope.curSubject == null) {
             $.ajax(
                 {
