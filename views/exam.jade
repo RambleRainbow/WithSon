@@ -7,21 +7,25 @@ block content
     body(ng-app="examApp" ng-controller="examController" as ctrl)
         .container-fluid
             .row-fluid
-                button.span2.well.prev(ng-click="onclickprev()") 上<br>一<br>题
-                .span8.main
+                .span12.main
                     .questionPanel.well
-                        div(exam-question="" display-question="curSubject.question.text") addr
+                        div(exam-question="" display-question="curSubject.question.text")
                     .answerPanel.well
                         div(exam-answer="" answer="curSubject.answer")
-                button.span2.well.next(ng-click="onclicknext()") 下<br>一<br>题
             .row-fluid
-                div(wav-player="", wav-file="wavFile")
-                .span8.offset2
+                .span10
                     .inputPanel.well
                         div(exam-input="" answer="curSubject.answer")
-        script
-            | var examPaper = eval(!{examPaper});
-        script(src="/javascripts/angular/exam/exam.js")
-        script(src="/javascripts/angular/exam/app.js")
-        script(src="javascripts/angular/exam/directives.js")
-        script(src="/javascripts/angular/exam/examController.js")
+                .span2
+                    .row
+                        button.span12.prev(ng-click="onclickprev()",style="height:100px") 上一题
+                    .row
+                        button.span12.next(ng-click="onclicknext()",style="height:100px;margin-top:10px") 下一题
+            div(wav-player="", wav-file="wavFile")
+
+    script
+        | var examPaper = eval(!{examPaper});
+    script(src="/javascripts/angular/exam/exam.js")
+    script(src="/javascripts/angular/exam/app.js")
+    script(src="javascripts/angular/exam/directives.js")
+    script(src="/javascripts/angular/exam/examController.js")

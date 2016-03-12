@@ -84,5 +84,5 @@ div#right
 .inputPanel{height:190px;background-color: rgba(92, 210, 76, 0.31);margin:0 10px 0 10px;padding:10px 10px 10px 10px;}
 .numPad{margin-bottom:10px; height:40px;line-height:40px;text-align:center;font-size:18px;background-color: #0e90d2;border:solid 2px #002a80}
 .clearBtn{height:190px}
-.prev{height:300px;font-size:20px}
-.next{height:300px;font-size:20px}
+.prev{font-size:20px}
+.next{font-size:20px}
