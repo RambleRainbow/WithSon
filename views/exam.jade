@@ -12,7 +12,7 @@ block content
                         div(exam-question="" display-question="curSubject.question.text")
                     .answerPanel.well
                         div(exam-answer="" answer="curSubject.answer")
-            .row-fluid
+            .row-fluid(style="height:400px;line-height:400px")
                 .span10
                     .inputPanel.well
                         div(exam-input="" answer="curSubject.answer")
@@ -20,7 +20,7 @@ block content
                     .row
                         button.span12.prev(ng-click="onclickprev()",class="\{{prevBtnClass}}") 上一题
                     .row
-                        button.span12.next(ng-click="onclicknext()",class="nextBtnClass",style="margin:10px 10px 0 0") 下一题
+                        button.span12.next(ng-click="onclicknext()",class="\{{nextBtnClass}}",style="margin:10px 10px 0 0") 下一题
             div(wav-player="", wav-file="wavFile")
 
     script

@@ -50,24 +50,24 @@ angular.module('examApp.directives')
         },
         template:
             '<div class="row">' +
-                '<div class="span10">' +
-                    '<div class="row">' +
-                        '<button class="btn btn-primary span2 offset5 numPad">1</button>' +
-                        '<button class="btn btn-primary span2 numPad">2</button>' +
-                        '<button class="btn btn-primary span2 numPad">3</button>' +
+                '<div class="span6">' +
+                    '<div class="row" style="margin-left:20px">' +
+                        '<button class="btn btn-primary span4 numPad">1</button>' +
+                        '<button class="btn btn-primary span4 numPad">2</button>' +
+                        '<button class="btn btn-primary span4 numPad">3</button>' +
                     '</div>' +
-                    '<div class="row">' +
-                        '<button class="btn btn-primary span2 offset5 numPad">4</button>' +
-                        '<button class="btn btn-primary span2 numPad">5</button>' +
-                        '<button class="btn btn-primary span2 numPad">6</button>' +
+                    '<div  class="row"  style="margin-left:20px">' +
+                        '<button class="btn btn-primary span4 numPad">4</button>' +
+                        '<button class="btn btn-primary span4 numPad">5</button>' +
+                        '<button class="btn btn-primary span4 numPad">6</button>' +
                     '</div>' +
-                    '<div class="row">' +
-                        '<button class="btn btn-primary span2 offset5 numPad">7</button>' +
-                        '<button class="btn btn-primary span2 numPad">8</button>' +
-                        '<button class="btn btn-primary span2 numPad">9</button>' +
+                    '<div  class="row"  style="margin-left:20px">' +
+                        '<button class="btn btn-primary span4 numPad">7</button>' +
+                        '<button class="btn btn-primary span4 numPad">8</button>' +
+                        '<button class="btn btn-primary span4 numPad">9</button>' +
                     '</div>' +
-                    '<div class="row">' +
-                        '<button class="btn btn-primary span6 offset5 numPad">0</button>' +
+                    '<div class="row"  style="margin-left:20px">' +
+                        '<button class="btn btn-primary span12 numPad">0</button>' +
                     '</div>' +
                 '</div>' +
                 '<div class="span2">' +

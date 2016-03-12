@@ -8,7 +8,7 @@ var assert = require('assert');
 var additionQuestions = require('./additionQuestions.js');
 
 var plusQuestions = additionQuestions.generateAddQuestions(100);
-
+var substractQuestions = additionQuestions
 mongoClient.connect('mongodb://127.0.0.1:27017/gws', function(err, db) {
     assert.equal(err, null);
 
