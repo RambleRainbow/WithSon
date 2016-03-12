@@ -6,6 +6,7 @@ angular.module('examApp.controllers')
 .controller( 'examController', ['$scope', function examController($scope) {
     var exam = new Exam(examPaper);
     $scope.wavFile = '';
+    $scope.prevBtnClass = "hidden";
 
     $scope.onclicknext = function() {
         if($scope.curSubject) {

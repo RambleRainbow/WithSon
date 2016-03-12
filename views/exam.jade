@@ -18,9 +18,9 @@ block content
                         div(exam-input="" answer="curSubject.answer")
                 .span2
                     .row
-                        button.span12.prev(ng-click="onclickprev()",style="height:100px") 上一题
+                        button.span12.prev(ng-click="onclickprev()",class="\{{prevBtnClass}}") 上一题
                     .row
-                        button.span12.next(ng-click="onclicknext()",style="height:100px;margin-top:10px") 下一题
+                        button.span12.next(ng-click="onclicknext()",class="nextBtnClass",style="margin:10px 10px 0 0") 下一题
             div(wav-player="", wav-file="wavFile")
 
     script
