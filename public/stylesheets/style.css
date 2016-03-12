@@ -87,3 +87,4 @@ div#right
 .prev{font-size:20px;height:100px}
 .next{font-size:20px;height:100px}
 .hidden{visibility: hidden}
+.remain{position:absolute;background-color: rgb(255, 233, 230);left:-2%;text-align: center;line-height:20px;font-size:18px;color:#ff0000}

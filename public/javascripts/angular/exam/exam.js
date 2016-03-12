@@ -5,6 +5,8 @@ function  Exam(examPaper) {
     this.examInfo = {name: examPaper.name, id:examPaper._id};
     this.examPaper = examPaper;
     this.subjects = [];
+
+    this.remainCount = examPaper.questionPool.length * 2;
 }
 
 Exam.prototype.checkAnswer = function() {
@@ -22,8 +24,10 @@ Exam.prototype.checkAnswer = function() {
     if(subject.answer == subject.question.answer) {
         subject.question.rightTimes++;
         subject.isRight = true;
+        this.remainCount--;
     }
     else {
+        this.remainCount += subject.question.rightTimes;
         subject.question.rightTimes = 0;
         subject.isRight = false;
     }

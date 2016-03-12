@@ -7,6 +7,7 @@ angular.module('examApp.controllers')
     var exam = new Exam(examPaper);
     $scope.wavFile = '';
     $scope.prevBtnClass = "hidden";
+    $scope.remainCount = exam.remainCount;
 
     $scope.onclicknext = function() {
         if($scope.curSubject) {
@@ -20,6 +21,7 @@ angular.module('examApp.controllers')
             $scope.wavFile = '/audios/wrong.mp3';
         }
         $scope.curSubject = exam.getNextSubject();
+        $scope.remainCount = exam.remainCount;
 
         if($scope.curSubject == null) {
             $.ajax(
