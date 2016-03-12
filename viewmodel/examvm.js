@@ -16,28 +16,30 @@ var getExamPaperEx = function(examParam) {
                     var questions = db.collection('questions');
                     return Promise.all([rules[0].name, questions.find(query,{equation:0,label:0,_id:0}).toArray()]);
                 }
-            }).then(function (questions) {
-                if (questions.length == 0) {
+            }).then(function (nameAndQuestions) {
+                if (nameAndQuestions[1].length == 0) {
                     reject(new Error("question pool is empty"));
                 }
                 else {
                     var maxCount = Math.max(1, Math.min(1000,examParam.count));
-                    var examData = {
-                        name: questions[0],
+                    var examPaper = {
+                        name: nameAndQuestions[0],
                         questionPool: []
                     }
-                    while(maxCount != 0 && questions[1].length != 0) {
-                        var idx = Math.floor(Math.random() * questions[1].length);
-                        examData.questionPool.push(questions[1][idx]);
-                        questions[1].splice(idx,1);
-                        maxCount--;
-                    }
 
-                    if(examData.questionPool.length === 0) {
+                    examPaper.questionPool = _.shuffle(nameAndQuestions[1]).slice(0, maxCount);
+                    //while(maxCount != 0 && nameAndQuestions[1].length != 0) {
+                    //    var idx = Math.floor(Math.random() * nameAndQuestions[1].length);
+                    //    examPaper.questionPool.push(nameAndQuestions[1][idx]);
+                    //    nameAndQuestions[1].splice(idx,1);
+                    //    maxCount--;
+                    //}
+
+                    if(examPaper.questionPool.length === 0) {
                         reject(new Error('question pool is empty'));
                     }
                     else {
-                        resolve(examData);
+                        resolve(examPaper);
                     }
                 }
             }).catch(function (err) {

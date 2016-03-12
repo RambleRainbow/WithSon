@@ -7,6 +7,8 @@ function  Exam(examPaper) {
     this.subjects = [];
 
     this.remainCount = examPaper.questionPool.length * 2;
+
+    this.curQuestionIndex = -1;
 }
 
 Exam.prototype.checkAnswer = function() {
@@ -34,6 +36,7 @@ Exam.prototype.checkAnswer = function() {
 
     if(subject.question.rightTimes == 2) {
         this.examPaper.questionPool.splice(this.examPaper.questionPool.indexOf(subject.question), 1);
+        this.curQuestionIndex--;
     }
 
     return subject.isRight;
@@ -41,8 +44,9 @@ Exam.prototype.checkAnswer = function() {
 
 Exam.prototype.getNextSubject = function() {
     if(this.examPaper.questionPool.length !== 0) {
+        this.curQuestionIndex = (this.curQuestionIndex + 1) % this.examPaper.questionPool.length;
         var subject = {
-            question: this.examPaper.questionPool[Math.floor(Math.random() * this.examPaper.questionPool.length)],
+            question: this.examPaper.questionPool[this.curQuestionIndex],
             answer:"",
             startTime: new Date()
         }
