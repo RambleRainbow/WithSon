@@ -50,7 +50,7 @@ angular.module('examApp.directives')
         },
         template:
             '<div class="row">' +
-                '<div class="span6">' +
+                '<div class="span4">' +
                     '<div class="row" style="margin-left:20px">' +
                         '<button class="btn btn-primary span4 numPad">1</button>' +
                         '<button class="btn btn-primary span4 numPad">2</button>' +
@@ -71,7 +71,7 @@ angular.module('examApp.directives')
                     '</div>' +
                 '</div>' +
                 '<div class="span2">' +
-                    '<button class="btn span12 clearBtn" >清除</button>' +
+                    '<button class="clearBtn btn span12" >清除</button>' +
                 '</div>' +
             '</div>'
     }

@@ -83,8 +83,8 @@ div#right
 .answer{font-size:60px}
 .inputPanel{background-color: rgba(92, 210, 76, 0.31);margin:0 10px 0 10px;padding:10px 10px 10px 10px;}
 .numPad{margin-bottom:10px; height:60px;line-height:60px;text-align:center;font-size:18px}
-.clearBtn{height:190px}
+.clearBtn{height:100%;height:270px}
 .prev{font-size:20px;height:100px}
 .next{font-size:20px;height:100px}
 .hidden{visibility: hidden}
-.remain{position:absolute;background-color: rgb(255, 233, 230);left:-6%;text-align: center;line-height:20px;font-size:18px;color:#ff0000}
+.remain{position:absolute;background-color:rgba(255, 233, 230,0.8);left:-6%;text-align: center;line-height:20px;font-size:18px;color:#ff0000}
