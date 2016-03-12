@@ -3,7 +3,7 @@
  */
 function  Exam(examPaper) {
     this.examInfo = {name: examPaper.name, id:examPaper._id};
-    this.exam = examPaper;
+    this.examPaper = examPaper;
     this.subjects = [];
 }
 
@@ -29,16 +29,16 @@ Exam.prototype.checkAnswer = function() {
     }
 
     if(subject.question.rightTimes == 2) {
-        this.exam.questionPool.splice(this.exam.questionPool.indexOf(subject.question), 1);
+        this.examPaper.questionPool.splice(this.examPaper.questionPool.indexOf(subject.question), 1);
     }
 
     return subject.isRight;
 }
 
 Exam.prototype.getNextSubject = function() {
-    if(this.exam.questionPool.length !== 0) {
+    if(this.examPaper.questionPool.length !== 0) {
         var subject = {
-            question: this.exam.questionPool[Math.floor(Math.random() * this.exam.questionPool.length)],
+            question: this.examPaper.questionPool[Math.floor(Math.random() * this.examPaper.questionPool.length)],
             answer:"",
             startTime: new Date()
         }
