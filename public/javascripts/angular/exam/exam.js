@@ -56,6 +56,6 @@ Exam.prototype.getPrevSubject = function() {
         return null;
     }
     else {
-        return this.subjects.lastChild();
+        return this.subjects[this.subjects.length];
     }
 }
