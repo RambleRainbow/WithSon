@@ -1,12 +1,17 @@
-doctype html
-html
-  head
-    title Growing With Son
-    meta(content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",name="viewport")
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+extends htmlhead
 
-    script(src='/javascripts/angular.js')
-    script(src='/javascripts/jquery/jquery.js')
-  body
+block body
+  .container-fluid
+    h1 Growing With Son
+    .navbar.navbar-inverse
+      .navbar-inner.nav-collapse(style='height: auto;')
+        ul.nav
+          li
+            a(href='/index.html') 首页
+          li
+            a(href='/english.html') 英文字母
+          li
+            a(href='/math.html') 数学
+          li
+            a(href='#') Page Two
     block content

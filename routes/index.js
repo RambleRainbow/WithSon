@@ -4,7 +4,19 @@ var examvm = require('../viewmodel/examvm.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    res.render('index', {title: 'Growing With Son'});
+});
+
+router.get('/index.html', function(req, res, next) {
+    res.redirect('/');
+});
+
+router.get('/english.html', function(req, res, next) {
+    res.render('english', {title: 'Growing With Son - 英语'});
+});
+
+router.get('/math.html', function(req, res, next) {
+    res.render('math', {title:'Growing With Son - 数学'});
 });
 
 router.get('/exam/statistics', function(req, res, next) {

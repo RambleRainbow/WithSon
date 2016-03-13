@@ -1,0 +1,36 @@
+//
+   Created by 灵 on 2016/3/13.
+
+extends layout
+
+block content
+    .row-fluid(ng-app="mathApp",ng-controller='mathController')
+        .span9
+            button.btn.btn-primary(ng-click="onStartExam(2)") 20以内加减法
+        .span3
+            h4 题目数量
+            ul.radioul
+                li.btn(class='\{{questionCount !== 10 ? "btn-primary": "btn-danger"}}',ng-click='questionCount= 10') 10题
+                li.btn(class='\{{questionCount !== 20 ? "btn-primary": "btn-danger"}}',ng-click='questionCount= 20') 20题
+                li.btn(class='\{{questionCount !== 40 ? "btn-primary": "btn-danger"}}',ng-click='questionCount = 40') 40题
+                li.btn.last(class='\{{questionCount !== 80 ? "btn-primary": "btn-danger"}}',ng-click='questionCount = 80') 40题
+            h4 正确次数
+            ul.radioul
+                li.btn(class='\{{rightTimes !== 0 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes= 0') 不限
+                li.btn(class='\{{rightTimes !== 2 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes= 2') 2次
+                li.btn.last(class='\{{rightTimes !== 3 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes = 3') 3次
+            h4 速度要求
+            ul.radioul
+                li.btn(class='\{{speedRestriction !== 0 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction= 0') 不限
+                li.btn(class='\{{speedRestriction !== 10 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction= 10') 10秒
+                li.btn.last(class='\{{speedRestriction !== 15 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction = 15') 15秒
+            h4 记忆时间
+            ul.radioul
+                li.btn(class='\{{memoryInterval !== 0 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval= 0') 不限
+                li.btn(class='\{{memoryInterval !== 3 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval= 3') 3秒
+                li.btn(class='\{{memoryInterval !== 5 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval = 5') 5秒
+                li.btn.last(class='\{{memoryInterval !== 10 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval = 10') 10秒
+
+    script(src="/javascripts/angular/math/app.js")
+    script(src="/javascripts/angular/math/directives.js")
+    script(src="/javascripts/angular/math/controllers.js")

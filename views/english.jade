@@ -1,0 +1,27 @@
+extends layout
+
+block content
+     #content.row-fluid(ng-app='gwsApp',ng-controller='PronounceLearnController as ctrl')
+       .span9.main
+         div(ng-repeat='c in cellInfos')
+           .cell(ng-click='checkUserClick(c.data)')
+       .span3.sidebar
+         h2 类型
+         .btn-group(style='width:100%')
+           button(class="{{studyMode == 'a2p' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:50%', ng-click="studyMode='a2p'") 字->音
+           button(class="{{studyMode == 'p2a' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:50%', ng-click="studyMode='p2a'") 音->字
+         h2 顺序
+         .btn-group(style='width:100%')
+           button(class="{{orderType == 'asc' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:50%', ng-click="orderType='asc'") 正序
+           button(class="{{orderType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:50%', ng-click="orderType='random'") 乱序
+         h2 排列
+         .btn-group(style='width:100%')
+           button(class="{{displayType == 'all' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:25%', ng-click="displayType='all'") 完整
+           button(class="{{displayType == 'upper' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:25%', ng-click="displayType='upper'") 大写
+           button(class="{{displayType == 'lower' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:25%', ng-click="displayType='lower'") 小写
+           button(class="{{displayType == 'random' ? 'btn btn-danger' : 'btn btn-primary'}}", style='width:25%', ng-click="displayType='random'") 随机
+         div(audio-player='', play-list='audioList')
+     script(src='/javascripts/angular/app/app.js')
+     script(src='/javascripts/angular/controller/pronounceLearnController.js')
+     script(src='/javascripts/angular/directives/audioPlayerDirective.js')
+ 
