@@ -24,6 +24,9 @@ var getExamPaperEx = function(examParam) {
                     var maxCount = Math.max(1, Math.min(1000,examParam.count));
                     var examPaper = {
                         name: nameAndQuestions[0],
+                        correctNumber:examParam.correctNumber,
+                        timeLimit:examParam.timeLimit,
+                        memorySpan:examParam.memorySpan,
                         questionPool: []
                     }
 

@@ -16,20 +16,20 @@ block content
                 li.btn.last(class='\{{questionCount !== 80 ? "btn-primary": "btn-danger"}}',ng-click='questionCount = 80') 80题
             h4 正确次数
             ul.radioul
-                li.btn(class='\{{rightTimes !== 0 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes= 0') 不限
-                li.btn(class='\{{rightTimes !== 2 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes= 2') 2次
-                li.btn.last(class='\{{rightTimes !== 3 ? "btn-primary": "btn-danger"}}',ng-click='rightTimes = 3') 3次
+                li.btn(class='\{{correctNumber !== 0 ? "btn-primary": "btn-danger"}}',ng-click='correctNumber= 0') 不限
+                li.btn(class='\{{correctNumber !== 2 ? "btn-primary": "btn-danger"}}',ng-click='correctNumber= 2') 2次
+                li.btn.last(class='\{{correctNumber !== 3 ? "btn-primary": "btn-danger"}}',ng-click='correctNumber = 3') 3次
             h4 速度要求
             ul.radioul
-                li.btn(class='\{{speedRestriction !== 0 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction= 0') 不限
-                li.btn(class='\{{speedRestriction !== 10 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction= 10') 10秒
-                li.btn.last(class='\{{speedRestriction !== 15 ? "btn-primary": "btn-danger"}}',ng-click='speedRestriction = 15') 15秒
+                li.btn(class='\{{timeLimit !== 0 ? "btn-primary": "btn-danger"}}',ng-click='timeLimit= 0') 不限
+                li.btn(class='\{{timeLimit !== 10 ? "btn-primary": "btn-danger"}}',ng-click='timeLimit= 10') 10秒
+                li.btn.last(class='\{{timeLimit !== 15 ? "btn-primary": "btn-danger"}}',ng-click='timeLimit = 15') 15秒
             h4 记忆时间
             ul.radioul
-                li.btn(class='\{{memoryInterval !== 0 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval= 0') 不限
-                li.btn(class='\{{memoryInterval !== 3 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval= 3') 3秒
-                li.btn(class='\{{memoryInterval !== 5 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval = 5') 5秒
-                li.btn.last(class='\{{memoryInterval !== 10 ? "btn-primary": "btn-danger"}}',ng-click='memoryInterval = 10') 10秒
+                li.btn(class='\{{memorySpan !== 0 ? "btn-primary": "btn-danger"}}',ng-click='memorySpan= 0') 不限
+                li.btn(class='\{{memorySpan !== 3 ? "btn-primary": "btn-danger"}}',ng-click='memorySpan= 3') 3秒
+                li.btn(class='\{{memorySpan !== 5 ? "btn-primary": "btn-danger"}}',ng-click='memorySpan = 5') 5秒
+                li.btn.last(class='\{{memorySpan !== 10 ? "btn-primary": "btn-danger"}}',ng-click='memorySpan = 10') 10秒
 
     script(src="/javascripts/angular/math/app.js")
     script(src="/javascripts/angular/math/directives.js")

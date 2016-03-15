@@ -52,22 +52,22 @@ angular.module('examApp.directives')
             '<div class="row">' +
                 '<div class="span4">' +
                     '<div class="row" style="margin-left:20px">' +
-                        '<button class="btn btn-primary span4 numPad">1</button>' +
-                        '<button class="btn btn-primary span4 numPad">2</button>' +
-                        '<button class="btn btn-primary span4 numPad">3</button>' +
+                        '<div class="btn btn-primary span4 numPad">1</div>' +
+                        '<div class="btn btn-primary span4 numPad">2</div>' +
+                        '<div class="btn btn-primary span4 numPad">3</div>' +
                     '</div>' +
                     '<div  class="row"  style="margin-left:20px">' +
-                        '<button class="btn btn-primary span4 numPad">4</button>' +
-                        '<button class="btn btn-primary span4 numPad">5</button>' +
-                        '<button class="btn btn-primary span4 numPad">6</button>' +
+                        '<div class="btn btn-primary span4 numPad">4</div>' +
+                        '<div class="btn btn-primary span4 numPad">5</div>' +
+                        '<div class="btn btn-primary span4 numPad">6</div>' +
                     '</div>' +
                     '<div  class="row"  style="margin-left:20px">' +
-                        '<button class="btn btn-primary span4 numPad">7</button>' +
-                        '<button class="btn btn-primary span4 numPad">8</button>' +
-                        '<button class="btn btn-primary span4 numPad">9</button>' +
+                        '<div class="btn btn-primary span4 numPad">7</div>' +
+                        '<div class="btn btn-primary span4 numPad">8</div>' +
+                        '<div class="btn btn-primary span4 numPad">9</div>' +
                     '</div>' +
                     '<div class="row"  style="margin-left:20px">' +
-                        '<button class="btn btn-primary span12 numPad">0</button>' +
+                        '<div class="btn btn-primary span12 numPad">0</div>' +
                     '</div>' +
                 '</div>' +
                 '<div class="span2">' +
@@ -96,5 +96,25 @@ angular.module('examApp.directives')
             })
         },
         template:'<audio style="display:none"></audio>'
+    }
+})
+.directive('spinButton', function(){
+    return {
+        restrict: 'A',
+        replace: true,
+        scope:{
+            clickEvent: '&',
+            caption: '='
+        },
+        controller:function($scope) {
+        },
+        link: function($scope, $eles, $attrs) {
+            $($eles[0]).on('touchstart', function() {
+                $scope.$apply(function () {
+                    $scope.clickEvent();
+                })
+            });
+        },
+        template:'<div class="btn btn-danger next span12">{{caption}}</div>'
     }
 })

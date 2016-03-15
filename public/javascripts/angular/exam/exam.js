@@ -1,6 +1,13 @@
 /**
  * Created by 灵 on 2016/3/5.
  */
+function ExamRule(times, elapsed) {
+
+}
+
+ExamRule.prototype.canRemoveQuestion = function(question, elapsed, isCorrect) {
+}
+
 function  Exam(examPaper) {
     this.examInfo = {name: examPaper.name, id:examPaper._id};
     this.examPaper = examPaper;
@@ -24,8 +31,8 @@ Exam.prototype.checkAnswer = function() {
         subject.question.rightTimes = 0;
     }
     if(subject.answer == subject.question.answer) {
-        subject.question.rightTimes++;
         subject.isRight = true;
+        subject.question.rightTimes++;
         this.remainCount--;
     }
     else {
@@ -64,6 +71,6 @@ Exam.prototype.getPrevSubject = function() {
         return null;
     }
     else {
-        return this.subjects[this.subjects.length];
+        return this.subjects[-1];
     }
 }

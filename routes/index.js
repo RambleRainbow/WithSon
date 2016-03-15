@@ -43,7 +43,7 @@ router.post('/exam/create', function(req, res, next) {
 });
 
 router.get('/exam', function(req, res, next) {
-    examvm.getExamPaperEx({id:req.query.id,count:req.query.count}).
+    examvm.getExamPaperEx({id:req.query.id,count:req.query.count,correctNumber:req.query.correctNumber,timeLimit:req.query.timeLimit,memorySpan:req.query.memorySpan}).
     then(function(exam) {
         res.render('exam', {examPaper: JSON.stringify(exam)});
     }).

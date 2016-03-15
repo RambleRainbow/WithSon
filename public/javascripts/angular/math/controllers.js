@@ -3,17 +3,17 @@
  */
 angular.module('mathApp.controllers')
 .controller( 'mathController', ['$scope', function examController($scope) {
-    $scope.rightTimes = 2;
-    $scope.speedRestriction = 10;
-    $scope.memoryInterval = 0;
+    $scope.correctNumber = 2;
+    $scope.timeLimit = 0;
+    $scope.memorySpan = 0;
     $scope.questionCount = 20;
 
     $scope.onStartExam = function(examId) {
         window.open('/exam?id=' + examId +
-            '&times=' + $scope.rightTimes +
+            '&correctNumber=' + $scope.correctNumber +
             '&count=' + $scope.questionCount +
-            '&interval=' + $scope.memoryInterval +
-            '&speed=' + $scope.speedRestriction
+            '&memorySpan=' + $scope.memorySpan +
+            '&timeLimit=' + $scope.timeLimit
         );
     }
 }]);
