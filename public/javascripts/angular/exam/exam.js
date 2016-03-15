@@ -1,8 +1,7 @@
 /**
  * Created by 灵 on 2016/3/5.
  */
-function ExamRule(times, elapsed) {
-
+function ExamRule(times, timeLimit) {
 }
 
 ExamRule.prototype.canRemoveQuestion = function(question, elapsed, isCorrect) {
@@ -12,6 +11,9 @@ function  Exam(examPaper) {
     this.examInfo = {name: examPaper.name, id:examPaper._id};
     this.examPaper = examPaper;
     this.subjects = [];
+    if(this.examPaper.timeLimit === 0) {
+        this.examPaper.timeLimit = Infinity;
+    }
 
     this.remainCount = examPaper.questionPool.length * 2;
 
@@ -30,10 +32,13 @@ Exam.prototype.checkAnswer = function() {
     if(!subject.question.hasOwnProperty('rightTimes')) {
         subject.question.rightTimes = 0;
     }
-    if(subject.answer == subject.question.answer) {
+    if((subject.answer == subject.question.answer)) {
         subject.isRight = true;
-        subject.question.rightTimes++;
-        this.remainCount--;
+
+        if ((subject.endTime - subject.startTime) < (this.examPaper.timeLimit * 1000)) {
+            subject.question.rightTimes++;
+            this.remainCount--;
+        }
     }
     else {
         this.remainCount += subject.question.rightTimes;
@@ -74,3 +79,4 @@ Exam.prototype.getPrevSubject = function() {
         return this.subjects[-1];
     }
 }
+

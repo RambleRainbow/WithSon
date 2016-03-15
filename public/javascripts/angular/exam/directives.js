@@ -104,7 +104,7 @@ angular.module('examApp.directives')
         replace: true,
         scope:{
             clickEvent: '&',
-            caption: '='
+            caption: '@'
         },
         controller:function($scope) {
         },
@@ -115,6 +115,6 @@ angular.module('examApp.directives')
                 })
             });
         },
-        template:'<div class="btn btn-danger next span12">{{caption}}</div>'
+        template:'<div class="next btn btn-danger span12">{{caption}}</div>'
     }
 })
