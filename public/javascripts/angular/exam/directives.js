@@ -15,25 +15,27 @@ angular.module('examApp.directives')
             $scope.text = '';
         },
         link: function($scope, $eles, $attrs) {
-            var tasks = []
+            var lastTask = null;
             $scope.$watch('triggerFadeout', function(newValue, oldValue, scope) {
                 if(newValue == 0) return;
 
-                tasks.push(function() {
+                var task = function(t) {
                     $($eles[0]).css('display','block');
                     setTimeout(function() {
                         $($eles[0]).fadeOut(300, function() {
-                            tasks.shift();
-                            if(tasks.length != 0) {
-                                tasks[0]();
+                            if(lastTask !== t) {
+                                lastTask(lastTask);
+                            } else {
+                                lastTask = null;
                             }
                         });
                     }, newValue * 1000);
-                });
+                };
 
-                if(tasks.length == 1) {
-                    tasks[0]();
-                }
+                if(lastTask === null) {
+                    task(task);
+                };
+                lastTask = task;
 
                 $scope.triggerFadeout = 0;
             })
