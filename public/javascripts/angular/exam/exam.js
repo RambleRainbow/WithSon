@@ -15,7 +15,12 @@ function  Exam(examPaper) {
         this.examPaper.timeLimit = Infinity;
     }
 
-    this.remainCount = this.examPaper.questionPool.length * this.examPaper.correctNumber;
+    if(this.examPaper.correctNumber == 0) {
+        this.remainCount = this.examPaper.questionPool.length;
+    }
+    else {
+        this.remainCount = this.examPaper.questionPool.length * this.examPaper.correctNumber;
+    }
 
     this.curQuestionIndex = -1;
 }
@@ -35,7 +40,9 @@ Exam.prototype.checkAnswer = function() {
 
     subject.isRight = subject.answer == subject.question.answer;
 
-    if ( subject.isRight && ((subject.endTime - subject.startTime) < (this.examPaper.timeLimit * 1000))) {
+    if ( this.examPaper.correctNumber == 0 ||
+        subject.isRight &&
+        ((subject.endTime - subject.startTime) < (this.examPaper.timeLimit * 1000))) {
         subject.question.rightTimes++;
         this.remainCount--;
     }
@@ -44,7 +51,7 @@ Exam.prototype.checkAnswer = function() {
         subject.question.rightTimes = 0;
     }
 
-    if(subject.question.rightTimes == this.examPaper.correctNumber) {
+    if(subject.question.rightTimes >= this.examPaper.correctNumber) {
         this.examPaper.questionPool.splice(this.examPaper.questionPool.indexOf(subject.question), 1);
         this.curQuestionIndex--;
     }
