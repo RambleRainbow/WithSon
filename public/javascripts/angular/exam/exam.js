@@ -32,18 +32,16 @@ Exam.prototype.checkAnswer = function() {
     if(!subject.question.hasOwnProperty('rightTimes')) {
         subject.question.rightTimes = 0;
     }
-    if((subject.answer == subject.question.answer)) {
-        subject.isRight = true;
 
-        if ((subject.endTime - subject.startTime) < (this.examPaper.timeLimit * 1000)) {
-            subject.question.rightTimes++;
-            this.remainCount--;
-        }
+    subject.isRight = subject.answer == subject.question.answer;
+
+    if ( subject.isRight && ((subject.endTime - subject.startTime) < (this.examPaper.timeLimit * 1000))) {
+        subject.question.rightTimes++;
+        this.remainCount--;
     }
     else {
         this.remainCount += subject.question.rightTimes;
         subject.question.rightTimes = 0;
-        subject.isRight = false;
     }
 
     if(subject.question.rightTimes == 2) {
