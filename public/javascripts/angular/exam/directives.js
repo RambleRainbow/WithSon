@@ -8,7 +8,22 @@ angular.module('examApp.directives')
         restrict: 'A',
         replace: true,
         scope: {
-            displayQuestion: '='
+            displayQuestion: '=',
+            triggerFadeout: '=',
+        },
+        controller: function($scope) {
+            $scope.text = '';
+        },
+        link: function($scope, $eles, $attrs) {
+            $scope.$watch('triggerFadeout', function(newValue, oldValue, scope) {
+                if(newValue == 0) return;
+                $($eles[0]).css('display','block');
+                setTimeout(function() {
+                    $($eles[0]).fadeOut('slow');
+                }, newValue * 1000);
+
+                $scope.triggerFadeout = 0;
+            })
         },
         template:'<div class="question">{{displayQuestion}}</div>'
     };
@@ -87,7 +102,6 @@ angular.module('examApp.directives')
         },
         link: function($scope, $eles, $attr) {
             $scope.$watch('wavFile', function(newVal, oldVal, scope) {
-                console.log(oldVal + ',' + newVal);
                 if(newVal === undefined || (newVal === "")) return;
                 $attr.$set('src', newVal);
                 $eles[0].load();

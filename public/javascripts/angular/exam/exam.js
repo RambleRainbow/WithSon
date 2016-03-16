@@ -11,7 +11,7 @@ function  Exam(examPaper) {
     this.examInfo = {name: examPaper.name, id:examPaper._id};
     this.examPaper = examPaper;
     this.subjects = [];
-    if(this.examPaper.timeLimit === 0) {
+    if(this.examPaper.timeLimit == 0) {
         this.examPaper.timeLimit = Infinity;
     }
 

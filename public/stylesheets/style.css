@@ -93,3 +93,8 @@ div#right
 .radioul li{display:block;background-color: #0e90d2;border-radius:0 0 0 0;margin-top:0px }
 .radioul li:first-child{border-radius:4px 4px 0 0;margin-top:0px }
 .radioul li.last{border-radius:0px 0px 4px 4px }
+
+@keyframes fadeOut {
+  0% {}
+  100%{color: rgba(255, 0, 0, 0)}
+}

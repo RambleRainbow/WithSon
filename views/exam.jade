@@ -9,7 +9,7 @@ block body
             .row-fluid
                 .span12
                     .well.questionPanel
-                        div(exam-question="" display-question="curSubject.question.text")
+                        div(exam-question="",display-question="curSubject.question.text",trigger-fadeout="triggerQuestionChange")
                     .answerPanel.well
                         div(exam-answer="" answer="curSubject.answer")
                 .span3.offset9.well.remain 剩余：{{remainCount}}
