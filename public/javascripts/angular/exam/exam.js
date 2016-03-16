@@ -15,7 +15,7 @@ function  Exam(examPaper) {
         this.examPaper.timeLimit = Infinity;
     }
 
-    this.remainCount = examPaper.questionPool.length * 2;
+    this.remainCount = this.examPaper.questionPool.length * this.examPaper.correctNumber;
 
     this.curQuestionIndex = -1;
 }
@@ -44,7 +44,7 @@ Exam.prototype.checkAnswer = function() {
         subject.question.rightTimes = 0;
     }
 
-    if(subject.question.rightTimes == 2) {
+    if(subject.question.rightTimes == this.examPaper.correctNumber) {
         this.examPaper.questionPool.splice(this.examPaper.questionPool.indexOf(subject.question), 1);
         this.curQuestionIndex--;
     }
