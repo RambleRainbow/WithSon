@@ -78,6 +78,236 @@ var saveExamResult = function(examResult) {
     });
 }
 
+function getErrStatistic(subjects) {
+    var result = _.chain(subjects)
+        .map(function(subject) {
+            var i = 1;
+            return {
+                question: subject.question.text,
+                rightAnswer: subject.question.answer,
+                answer: subject.answer,
+                isRight: subject.isRight
+            };
+        })
+        .reject(function(subject){return subject.isRight;})
+        .value();
+    return result;
+}
+
+function getTimespanStatistic(subjects) {
+    var result = _.chain(subjects)
+        .map(function(subject) {
+            return {
+                question: subject.question.text,
+                timeSpan: new Date(subject.endTime) - new Date(subject.startTime)
+            }
+        })
+        .groupBy(function(subject) {
+            return subject.question;
+        })
+        .mapObject(function(answerSpans, question) {
+            var len = answerSpans.length;
+            return {
+                question: question,
+                times: len,
+                timeSpan: (Math.floor(_.chain(answerSpans)
+                        .reduce(function (memo, t) {
+                            return memo + t.timeSpan;
+                        }, 0)
+                        .value() / len / 10))/100
+            }
+        })
+        .toArray()
+        .sortBy(function(timeSpan){return -1 * timeSpan.timeSpan;})
+        .map(function(timeSpan){timeSpan.timeSpan = timeSpan.timeSpan.toString() + '秒';return timeSpan;})
+        .value();
+
+    return result;
+}
+
+function getTimespanChart(exam) {
+    return {
+        title: {
+            text: '本次测试',
+            x: -20 //center
+        },
+        subtitle: {
+            text: exam.paper.startTime.toLocaleString(),
+            x: -20
+        },
+        xAxis: {
+            categories: _.map(exam.subjects, function(s) { var t =  s.question.text;t = t.substring(0, t.length - 2); return t;})
+        },
+        yAxis: {
+            title: {
+                text: '计时(秒)'
+            },
+            labels: {
+                formatter: function() {
+                    return this.value +'\''
+                }
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '秒'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: '耗时',
+            data: _.map(exam.subjects, function(s) {
+                var coust = (new Date(s.endTime) - new Date(s.startTime))/1000;
+                if(s.isRight) {
+                    return coust;
+                } else {
+                    return {
+                        y: coust,
+                        marker:{
+                            symbol: 'diamond',
+                            fillColor: '#FF0000'
+                        }
+                    }
+                }
+            })
+        }]
+    };
+}
+
+function getPerquestionChart(exam) {
+    var calc = _.chain(exam.subjects)
+        .map(function(s){ return {
+            question: s.question.text,
+            timeSpan: (new Date(s.endTime) - new Date(s.startTime))/1000
+        }})
+        .groupBy(function(s){ return s.question;})
+        .mapObject(function(spans, question) {
+            return {
+                question: question,
+                timeSpans: spans
+            }
+        })
+        .toArray()
+        .value();
+
+    var i = 1;
+    return {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Stacked column chart'
+        },
+        xAxis: {
+            categories: _.map(calc, function(v){ return v.question;})
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total fruit consumption'
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    //color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            align: 'right',
+            x: -70,
+            verticalAlign: 'top',
+            y: 20,
+            floating: true,
+            //backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+            borderColor: '#CCC',
+            borderWidth: 1,
+            shadow: false
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>'+ this.x +'</b><br/>'+
+                    this.series.name +': '+ this.y +'<br/>'+
+                    'Total: '+ this.point.stackTotal;
+            }
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    //enabled: true,
+                    //color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                }
+            }
+        },
+        series: [
+            {
+                name: '9',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 8) ? v.timeSpans[8].timeSpan : 0;
+                })
+            },
+            {
+                name: '8',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 7) ? v.timeSpans[7].timeSpan : 0;
+                })
+            },
+            {
+                name: '7',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 6) ? v.timeSpans[6].timeSpan : 0;
+                })
+            },
+            {
+                name: '6',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 5) ? v.timeSpans[5].timeSpan : 0;
+                })
+            },
+            {
+                name: '5',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 4) ? v.timeSpans[4].timeSpan : 0;
+                })
+            },
+            {
+                name: '4',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 3) ? v.timeSpans[3].timeSpan : 0;
+                })
+            },
+            {
+                name: '3',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 2) ? v.timeSpans[2].timeSpan : 0;
+                })
+            },
+            {
+                name: '2',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 1) ? v.timeSpans[1].timeSpan : 0;
+                })
+            },
+            {
+                name: '1',
+                data: _.map(calc, function (v) {
+                    return (v.timeSpans.length > 0) ? v.timeSpans[0].timeSpan : 0;
+                })
+            }
+        ]
+    };
+}
+
 var getExamStatistic = function(examId) {
     return new Promise(function(resolve, reject) {
         mongoClient.connect(config.dburl, function(err, db) {
@@ -94,45 +324,8 @@ var getExamStatistic = function(examId) {
                     return;
                 }
 
-                var errStatistic = _.chain(exams[0].subjects)
-                    .map(function(subject) {
-                        var i = 1;
-                        return {
-                            question: subject.question.text,
-                            rightAnswer: subject.question.answer,
-                            answer: subject.answer,
-                            isRight: subject.isRight
-                        };
-                    })
-                    .reject(function(subject){return subject.isRight;})
-                    .value();
-
-                var timespanStatistic = _.chain(exams[0].subjects)
-                    .map(function(subject) {
-                        return {
-                            question: subject.question.text,
-                            timeSpan: new Date(subject.endTime) - new Date(subject.startTime)
-                        }
-                    })
-                    .groupBy(function(subject) {
-                        return subject.question;
-                    })
-                    .mapObject(function(answerSpans, question) {
-                        var len = answerSpans.length;
-                        return {
-                            question: question,
-                            times: len,
-                            timeSpan: (Math.floor(_.chain(answerSpans)
-                                .reduce(function (memo, t) {
-                                    return memo + t.timeSpan;
-                                }, 0)
-                                .value() / len / 10))/100
-                        }
-                    })
-                    .toArray()
-                    .sortBy(function(timeSpan){return -1 * timeSpan.timeSpan;})
-                    .map(function(timeSpan){timeSpan.timeSpan = timeSpan.timeSpan.toString() + '秒';return timeSpan;})
-                    .value();
+                var errStatistic = getErrStatistic(exams[0].subjects);
+                var timespanStatistic = getTimespanStatistic(exams[0].subjects);
 
                 resolve({
                     name: exams[0].paper.name,
@@ -145,11 +338,13 @@ var getExamStatistic = function(examId) {
                         return min.toString() + "分" + sec.toString() + "秒";
                     })(),
                     err: errStatistic,
-                    timeSpan: timespanStatistic
+                    timeSpan: timespanStatistic,
+                    chartTimespan: getTimespanChart(exams[0]),
+                    chartPerquestion:getPerquestionChart(exams[0])
                 });
             }).
             catch(function(err) {
-                throw err;
+                reject(err);
             })
         })
     });

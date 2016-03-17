@@ -22,7 +22,7 @@ router.get('/math.html', function(req, res, next) {
 router.get('/exam/statistics', function(req, res, next) {
     examvm.getExamStatistic(req.query.id).
     then(function(result) {
-        res.render('examStatistics', {title: '测试结果',statistic: result});
+        res.render('examStatistics', {title: '测试结果',statistic: result, statisticJson: JSON.stringify(result)});
     }).
     catch(function(err) {
         res.send(err);

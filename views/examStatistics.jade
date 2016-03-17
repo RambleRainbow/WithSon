@@ -9,6 +9,9 @@ block content
             .well.span5='日期:' + statistic.startTime
             .well.span3='用时:' + statistic.totalTime
         .row-fluid
+            #chartTimespan.span12(style="height:300px")
+            #chartPerquestion.span12(style="height:300px")
+        .row-fluid
             .span5
                 table.table
                     thead
@@ -33,3 +36,14 @@ block content
                             td=span.question
                             td=span.times
                             td=span.timeSpan
+    script.
+        var chartDatas = eval(!{statisticJson});
+        $(function(){
+            $('#chartTimespan').highcharts(
+                chartDatas.chartTimespan
+            );
+
+            $('#chartPerquestion').highcharts(
+                chartDatas.chartPerquestion
+            )
+        });
