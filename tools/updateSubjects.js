@@ -24,9 +24,11 @@ mongoClient.connect('mongodb://localhost:27017/gws', function(err, db) {
             return Promise.all(updatePromises);
         })
         .then(function() {
+            db.close();
             return true;
         })
         .catch(function(err) {
             console.log(err.message);
+            db.close();
         });
 });
