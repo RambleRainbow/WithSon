@@ -28,7 +28,16 @@ block body
                 source(src="/audios/ori.mp3")
     script
         | var examPaper = eval(!{examPaper});
-        |$(document).ready(function() { $('#backgroundwav')[0].play()});
+    script.
+        $(document).ready(function() {
+            var startPlay = false;
+            document.addEventListener('touchstart', function(){
+                if(!startPlay){
+                    $('#backgroundwav')[0].play();
+                    startPlay = true;
+                }
+            }, false);
+        });
     script(src="/javascripts/angular/exam/exam.js")
     script(src="/javascripts/angular/exam/app.js")
     script(src="javascripts/angular/exam/directives.js")
