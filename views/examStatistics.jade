@@ -36,7 +36,7 @@ block content
                             td=span.question
                             td=span.times
                             td=span.timeSpan
-    audio(id="backgroundwav", style="display:none", loop="loop")
+    audio(id="backgroundwav", preload="auto", style="display:none", loop="loop")
         source(src="/audios/Gareth Coker,Tom Boyd - The Waters Cleansed.mp3")
     script.
         var chartDatas = eval(!{statisticJson});
@@ -49,5 +49,12 @@ block content
                 chartDatas.chartPerquestion
             );
 
-            $('#backgroundwav')[0].play();
+            var startPlay = false;
+
+            document.addEventListener('touchstart', function() {
+                if(!startPlay) {
+                    $('#backgroundwav')[0].play();
+                    startPlay = true;
+                }
+            }, false);
         });

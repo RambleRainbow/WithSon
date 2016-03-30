@@ -24,7 +24,7 @@ block body
                         div(spin-button="" click-event="onclicknext()" caption="下一题")
                         //div.span12.btn.btn-danger.next(ng-click="onclicknext()",class="\{{nextBtnClass}}",style="margin:10px 10px 0 0") 下一题
             div(wav-player="", wav-file="wavFile")
-            audio(id="backgroundwav",loop="loop",style="display:none")
+            audio(id="backgroundwav", preload="auto", loop="loop",style="display:none")
                 source(src="/audios/ori.mp3")
     script
         | var examPaper = eval(!{examPaper});
