@@ -36,6 +36,8 @@ block content
                             td=span.question
                             td=span.times
                             td=span.timeSpan
+    audio(id="backgroundwav", style="display:none", loop="loop")
+        source(src="/audios/Gareth Coker,Tom Boyd - The Waters Cleansed.mp3")
     script.
         var chartDatas = eval(!{statisticJson});
         $(function(){
@@ -45,5 +47,7 @@ block content
 
             $('#chartPerquestion').highcharts(
                 chartDatas.chartPerquestion
-            )
+            );
+
+            $('#backgroundwav')[0].play();
         });
